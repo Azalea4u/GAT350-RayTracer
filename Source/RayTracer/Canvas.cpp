@@ -1,7 +1,6 @@
 #include "Canvas.h"
-#include <SDL.h>
+#include "Renderer.h"
 #include <algorithm>
-
 Canvas::Canvas(int width, int height, const Renderer& renderer)
 {
     m_size = glm::ivec2(width, height);
@@ -19,7 +18,7 @@ Canvas::~Canvas()
 
 void Canvas::Update()
 {
-    SDL_UpdateTexture(m_texture, NULL, m_buffer.data(), m_size.x * sizeof(rgba_t));
+    SDL_UpdateTexture(m_texture, nullptr, m_buffer.data(), m_size.x * sizeof(rgba_t));
 }
 
 void Canvas::Clear(const color4_t& color)
@@ -30,7 +29,8 @@ void Canvas::Clear(const color4_t& color)
 
 void Canvas::DrawPoint(const glm::ivec2& point, const color4_t& color)
 {
+    // copy canvas texture to renderer
     if (point.x >= m_size.x || point.x < 0 || point.y >= m_size.y || point.y > 0) return;
-
+    // present renderer to screen
     m_buffer[point.x + (point.y * m_size.x)] = ColorToRGBA(color);
 }

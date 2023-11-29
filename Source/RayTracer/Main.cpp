@@ -17,18 +17,11 @@ int main(int argc, char* argv[])
 
     Canvas canvas(400, 300, renderer);
 
+    float aspectRatio = canvas.GetSize().x / canvas.GetSize().y;
+
     bool quit = false;
     while (!quit)
     {
-        canvas.Clear({ 0, 0, 0, 1 });
-        for (int i = 0; i < 1000; ++i)
-        {
-            canvas.DrawPoint({ random(0, 400), random(0, 300) }, { random(0, 255), random(0, 255), random(0, 255), 1 });
-        }
-        canvas.Update();
-
-        renderer.PresentCanvas(canvas);
-
         SDL_Event event;
         while (SDL_PollEvent(&event))
         {
@@ -39,8 +32,27 @@ int main(int argc, char* argv[])
                 case SDL_QUIT:
 					quit = true;
 					break;
+
+                case SDL_KEYDOWN:
+                    switch (event.key.keysym.sym)
+                    {
+                    case SDLK_ESCAPE:
+                        quit = true;
+                        break;
+                    }
+                    break;
             }
+            break;
         }
+
+        canvas.Clear({ 0, 0, 0, 1 });
+        for (int i = 0; i < 1000; ++i)
+        {
+            canvas.DrawPoint({ random01() * 400, random01() * 300}, { random01(), random01, random01(), 1});
+        }
+        canvas.Update();
+
+        renderer.PresentCanvas(canvas);
     }
 
     // Shutdown renderer

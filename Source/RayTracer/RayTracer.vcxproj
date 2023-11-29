@@ -188,6 +188,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
