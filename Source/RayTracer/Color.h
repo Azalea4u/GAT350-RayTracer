@@ -6,7 +6,6 @@ using color4_t = glm::vec4;
 
 using rgba_t = uint32_t;
 
-
 inline color4_t RGBAToColor(const rgba_t& rgba) {
     return color4_t(
         ((rgba >> 24) & 0xFF) / 255.0f, // Red
