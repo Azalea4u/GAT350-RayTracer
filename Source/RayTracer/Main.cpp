@@ -50,15 +50,14 @@ int main(int argc, char* argv[])
             }
             break;
         }
-
+      
         canvas.Clear({ 0, 0, 0, 1 });
-        scene.Render(canvas);
-        canvas.Update();
-
-        renderer.PresentCanvas(canvas);        for (int i = 0; i < 1000; ++i)
+        for (int i = 0; i < 1000; ++i)
         {
-            canvas.DrawPoint({ random01() * 400, random01() * 300}, { random01(), random01, random01(), 1});
+            canvas.DrawPoint({ random01() * 400, random01() * 300}, { random01(), random01(), random01(), 1.0f});
         }
+
+        scene.Render(canvas);
         canvas.Update();
 
         renderer.PresentCanvas(canvas);

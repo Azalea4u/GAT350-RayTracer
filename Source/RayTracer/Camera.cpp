@@ -1,9 +1,11 @@
 #include "Camera.h"
 #include "MathUtils.h"
 
-Camera::Camera(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up, float fov, float aspectRatio)
+Camera::Camera(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up, float fov, float aspectRatio) :
+	m_fov{ fov },
+	m_aspectRatio{ aspectRatio }
 {
-
+	LookAt(eye, target, up);
 }
 
 void Camera::LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up)
@@ -11,13 +13,13 @@ void Camera::LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::ve
 	m_eye = eye;
 	// set the camera axis vectors (forward, right, up)
 	// forward vector (eye <- target)
-	m_forward = normalize(target - eye);
+	m_forward = normalize(eye - target);
 	// use cross product to create vectors
 		// right = up x forward 
 	m_right = normalize(cross(up, m_forward));
 		//<make sure to normalize vector>
 	// up = forward x right
-	m_up = m_forward * m_right;
+	m_up = cross(m_forward, m_right);
 		// <both vectors are normalized, no need to normalize :)>
 	
 	CalculateViewPlane();
