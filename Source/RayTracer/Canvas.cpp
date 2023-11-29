@@ -29,8 +29,6 @@ void Canvas::Clear(const color4_t& color)
 
 void Canvas::DrawPoint(const glm::ivec2& point, const color4_t& color)
 {
-    // copy canvas texture to renderer
     if (point.x >= m_size.x || point.x < 0 || point.y >= m_size.y || point.y > 0) return;
-    // present renderer to screen
     m_buffer[point.x + (point.y * m_size.x)] = ColorToRGBA(color);
 }

@@ -1,9 +1,9 @@
 #include <iostream>
-#include <SDL.h>
 #include "Renderer.h"
+#include "Canvas.h"
 #include "Random.h"
+#include <SDL.h>
 #include <ctime>
-#include "Random.h"
 
 int main(int argc, char* argv[])
 {
