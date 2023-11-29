@@ -19,7 +19,7 @@ void Scene::Render(Canvas& canvas)
 			point.y = 1.0f - point.y;
 
 			// create ray from camera
-			ray_t ray = m_camera.GetRay(point);
+			ray_t ray = m_camera->GetRay(point);
 				//<get ray from camera using point>
 
 				// cast ray into scene
