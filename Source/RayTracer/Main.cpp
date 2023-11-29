@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     while (!quit)
     {
         canvas.Clear({ 0, 0, 0, 1 });
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < 1000; ++i)
         {
             canvas.DrawPoint({ random(0, 400), random(0, 300) }, { random(0, 255), random(0, 255), random(0, 255), 1 });
         }
