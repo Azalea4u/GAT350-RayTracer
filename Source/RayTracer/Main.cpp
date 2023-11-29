@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 
     Canvas canvas(400, 300, renderer);
 
-    float aspectRatio = canvas.GetSize().x / canvas.GetSize().y;
+    //float aspectRatio = canvas.GetSize().x / canvas.GetSize().y;
 
     bool quit = false;
     while (!quit)

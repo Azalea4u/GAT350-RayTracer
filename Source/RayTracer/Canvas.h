@@ -13,6 +13,7 @@ public:
     ~Canvas();
 
     void Update();
+
     void Clear(const color4_t& color);
     void DrawPoint(const glm::ivec2& point, const color4_t& color);
 
