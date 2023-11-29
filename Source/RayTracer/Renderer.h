@@ -16,7 +16,6 @@ struct Ray {
         return origin + distance * direction;
     }
 
-    // Operator overload for multiplying a ray by a float
     glm::vec3 operator*(float distance) const {
         return GetPoint(distance);
     }

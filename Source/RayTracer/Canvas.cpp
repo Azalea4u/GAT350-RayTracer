@@ -4,9 +4,8 @@
 
 Canvas::Canvas(int width, int height, const Renderer& renderer)
 {
-    m_size = glm::ivec2(width, height);  // Using glm::ivec2 for pixel dimensions
-    m_texture = SDL_CreateTexture(renderer.m_renderer, SDL_PIXELFORMAT_RGBA8888,
-        SDL_TEXTUREACCESS_STREAMING, width, height);
+    m_size = glm::ivec2(width, height);
+    m_texture = SDL_CreateTexture(renderer.m_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
 
     m_buffer.resize(width * height);
 }
@@ -31,7 +30,7 @@ void Canvas::Clear(const color4_t& color)
 
 void Canvas::DrawPoint(const glm::ivec2& point, const color4_t& color)
 {
-    if (point.x >= m_size.x || point.y >= m_size.y) return;
+    if (point.x >= m_size.x || point.x < 0 || point.y >= m_size.y || point.y > 0) return;
 
-    m_buffer[point.x + (point.y * m_size.x)] = ColorToRGBA(color);  // Convert color to rgba_t
+    m_buffer[point.x + (point.y * m_size.x)] = ColorToRGBA(color);
 }
