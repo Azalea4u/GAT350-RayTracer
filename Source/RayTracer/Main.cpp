@@ -4,6 +4,7 @@
 #include "Random.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "Material.h"
 #include <SDL.h>
 #include <ctime>
 
@@ -24,6 +25,9 @@ int main(int argc, char* argv[])
 
     Scene scene; // sky color could be set with the top and bottom color
     scene.SetCamera(camera);
+
+    // create Material
+    auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
 
     bool quit = false;
     while (!quit)
