@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Material.h"
 #include "Sphere.h"
+#include "Random.h"
 #include <SDL.h>
 #include <ctime>
 
@@ -17,9 +18,9 @@ int main(int argc, char* argv[])
 
     Renderer renderer;
     renderer.Initialize();
-    renderer.CreateWindow("SDL Window", 400, 300);
+    renderer.CreateWindow("SDL Window", 1200, 900);
 
-    Canvas canvas(400, 300, renderer);
+    Canvas canvas(1200, 900, renderer);
 
     float aspectRatio = canvas.GetSize().x / (float)canvas.GetSize().y;
     std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 0, 1 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 70.0f, aspectRatio);
@@ -31,10 +32,12 @@ int main(int argc, char* argv[])
     auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
 
     // create objects -> add to scene
-    auto sphere = std::make_unique<Sphere>(glm::vec3{ 0, 0, 0 }, 0.5f, material);
-        //<x,y,z> }, <radius>, material);
-    scene.AddObject(std::move(sphere));
-        //<add sphere to scene>);
+    for (int i = 0; i < 15; ++i)
+    {
+        // randomize position and radius
+        auto sphere = std::make_unique<Sphere>(glm::vec3{ random(-1, 1), random(-1, 1), random(-1, 1)}, random(0.1f, 0.5f), material);
+        scene.AddObject(std::move(sphere));
+    }
 
     bool quit = false;
     while (!quit)

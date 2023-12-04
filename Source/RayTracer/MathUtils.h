@@ -18,3 +18,11 @@ inline float dot(const glm::vec3& v1, const glm::vec3& v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
+
+// clamp
+inline float clamp(float x, float min, float max)
+{
+	if (x < min) return min;
+	if (x > max) return max;
+	return x;
+}
