@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "Material.h"
+#include "Sphere.h"
 #include <SDL.h>
 #include <ctime>
 
@@ -28,6 +29,12 @@ int main(int argc, char* argv[])
 
     // create Material
     auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+
+    // create objects -> add to scene
+    auto sphere = std::make_unique<Sphere>(glm::vec3{ 0, 0, 0 }, 0.5f, material);
+        //<x,y,z> }, <radius>, material);
+    scene.AddObject(std::move(sphere));
+        //<add sphere to scene>);
 
     bool quit = false;
     while (!quit)
@@ -55,12 +62,8 @@ int main(int argc, char* argv[])
             break;
         }
       
-        canvas.Clear({ 0, 0, 0, 1 });
-        for (int i = 0; i < 1000; ++i)
-        {
-            canvas.DrawPoint({ random01() * 400, random01() * 300}, { random01(), random01(), random01(), 1.0f});
-        }
-
+        // render scene
+        canvas.Clear({ 0, 0, 0, 1 });   
         scene.Render(canvas);
         canvas.Update();
 
