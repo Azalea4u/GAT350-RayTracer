@@ -1,7 +1,7 @@
 #include "Material.h"
 #include "Random.h"
 
-/*
+
 bool Lambertian::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color3_t& color, ray_t& scattered) const
 {
     glm::vec3 target = raycastHit.point + raycastHit.normal + randomToUnitSphere();
@@ -16,7 +16,6 @@ bool Lambertian::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color
 
     return true;
 }
-*/
 
 bool Metal::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3& color, ray_t& scattered) const
 {

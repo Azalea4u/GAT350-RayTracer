@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
     Renderer renderer;
     renderer.Initialize();
-    renderer.CreateWindow("SDL Window", 400, 300);
+    renderer.CreateWindow("SDL Window", 800, 600);
 
     Canvas canvas(400, 300, renderer);
 
@@ -29,29 +29,19 @@ int main(int argc, char* argv[])
     scene.SetCamera(camera);
 
     // create Material
-    auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+    // create material
+    auto lambertian = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+    auto metal = std::make_shared<Metal>(color3_t{ 1, 1, 1 }, 0.0f);
 
     // create objects -> add to scene
-    for (int i = 0; i < 15; ++i)
+    for (int i = 0; i < 10; i++)
     {
-        // randomize position and radius
-        auto sphere = std::make_unique<Sphere>(glm::vec3{ random(-1, 1), random(-1, 1), random(-1, 1)}, random(0.1f, 0.5f), material);
+        std::shared_ptr<Material> material = (rand() % 2 == 0) ? std::dynamic_pointer_cast<Material>(lambertian) : std::dynamic_pointer_cast<Material>(metal);
+            //<use rand() and %to randomly pick the material>) ? std::dynamic_pointer_cast<Material>(lambertian) : std::dynamic_pointer_cast<Material>(metal);
+        auto sphere = std::make_unique<Sphere>(glm::vec3{ random(-1, 1), random(-1, 1), random(-1, 1) }, random(0.1f, 0.5f), material);
+        //<create the sphere with the material>;
         scene.AddObject(std::move(sphere));
     }
-
-    /*
-        // create material
-auto lambertian = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
-auto metal = std::make_shared<Metal>(color3_t{ 1, 1, 1 }, 0.0f);
- 
-// create objects -> add to scene
-for (int i = 0; i < 10; i++)
-{
-	std::shared_ptr<Material> material = (<use rand() and % to randomly pick the material>) ? std::dynamic_pointer_cast<Material>(lambertian) : std::dynamic_pointer_cast<Material>(metal);
-	auto sphere = <create the sphere with the material>;
-	scene.AddObject(std::move(sphere));
-}
-    */
 
     bool quit = false;
     while (!quit)
