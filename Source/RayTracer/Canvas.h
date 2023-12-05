@@ -1,6 +1,5 @@
 #pragma once
 #include "Color.h"
-#include <glm/glm.hpp>
 #include <vector>
 
 class Renderer;

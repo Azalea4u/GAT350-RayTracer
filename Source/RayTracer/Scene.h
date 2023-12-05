@@ -1,5 +1,4 @@
 #pragma once
-#include "Color.h"
 #include "Camera.h"
 #include "Ray.h"
 #include "Object.h"
