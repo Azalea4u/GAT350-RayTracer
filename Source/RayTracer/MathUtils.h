@@ -26,3 +26,8 @@ inline float clamp(float x, float min, float max)
 	if (x > max) return max;
 	return x;
 }
+
+inline glm::vec3 reflect(const glm::vec3& v, const glm::vec3& n)
+{
+	return (v - 2.0f * dot(v, n) * n);
+}

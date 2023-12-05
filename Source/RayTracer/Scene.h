@@ -15,7 +15,8 @@ public:
 		m_bottomColor{ bottomColor }
 	{}
 
-	void Render(class Canvas& canvas);
+	void Render(class Canvas& canvas, int numSamples);
+	//void Render(class Canvas& canvas);
 	//color3_t Trace(const ray_t& ray);
 	color3_t Trace(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit);
 	void AddObject(std::unique_ptr<Object> object) { m_objects.push_back(std::move(object)); }

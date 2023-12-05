@@ -18,7 +18,6 @@ bool Lambertian::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color
 }
 */
 
-/*
 bool Metal::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3& color, ray_t& scattered) const
 {
     glm::vec3 reflected = glm::reflect(glm::normalize(ray.direction), raycastHit.normal);
@@ -32,4 +31,3 @@ bool Metal::Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3&
     // make sure that reflected ray is going away from surface normal (dot product > 0, angle between vectors < 90 degrees)
     return glm::dot(scattered.direction, raycastHit.normal) > 0;
 }
-*/
