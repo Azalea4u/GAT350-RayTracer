@@ -36,6 +36,6 @@ private:
 
 	int m_depth{ 5 };
 
-	color3_t m_topColor{ 0 };
-	color3_t m_bottomColor{ 1 };
+	color3_t m_topColor{ 1 };
+	color3_t m_bottomColor{ 0.5f };
 };

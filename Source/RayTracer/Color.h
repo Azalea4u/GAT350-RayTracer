@@ -2,6 +2,7 @@
 #include "MathUtils.h"
 #include <algorithm>
 #include <glm/glm.hpp>
+#include <glm/gtx/color_space.hpp>
 
 using color3_t = glm::vec3;
 using color4_t = glm::vec4;
