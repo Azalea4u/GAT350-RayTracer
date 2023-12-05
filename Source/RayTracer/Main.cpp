@@ -62,8 +62,8 @@ int main(int argc, char* argv[])
     auto plane = std::make_unique<Plane>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, material);
     scene.AddObject(std::move(plane));
 
-    auto triangle = std::make_unique<Triangle>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 0, 0 }, glm::vec3{ 0, 1, 0 }, material);
-    scene.AddObject(std::move(triangle));
+    //auto triangle = std::make_unique<Triangle>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 1, 0, 0 }, glm::vec3{ 0, 1, 0 }, material);
+    //scene.AddObject(std::move(triangle));
 
     // render scene
     canvas.Clear({ 0, 0, 0, 1 });
@@ -89,8 +89,7 @@ int main(int argc, char* argv[])
                     break;
                 }
                 break;
-           }        
-      
+           }              
 
         renderer.PresentCanvas(canvas);
     }
