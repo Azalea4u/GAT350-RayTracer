@@ -1,10 +1,11 @@
 #include "Scene.h"
 #include "Canvas.h"
 #include "MathUtils.h"
-#include "Random.h"
+#include "Random.h""
 #include <iostream>
+#include <iomanip>
 
-void Scene::Render(Canvas& canvas, int numSamples)
+void Scene::Render(Canvas& canvas, int numSamples, int depth) 
 {
 	for (int y = 0; y < canvas.GetSize().y; y++)
 	{
@@ -33,8 +34,7 @@ void Scene::Render(Canvas& canvas, int numSamples)
 				// cast ray into scene
 				// add color value from trace
 				raycastHit_t raycastHit;
-
-				color += Trace(ray, 0, 100, raycastHit, 5);
+				color += Trace(ray, 0, 100, raycastHit, depth);
 			}
 
 			// draw color to canvas point (pixel)
@@ -43,8 +43,8 @@ void Scene::Render(Canvas& canvas, int numSamples)
 			//<divide color by number of samples>
 			canvas.DrawPoint(pixel, color4_t(color, 1));
 		}
-	}
-	
+		std::cout << std::setprecision(2) << std::setw(5) << ((y / (float)canvas.GetSize().y) * 100) << "%\n";
+	}	
 }
 
 color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit, int depth)
@@ -91,7 +91,3 @@ color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, ra
 
 	return color;
 }
-
-/*
-
-*/
