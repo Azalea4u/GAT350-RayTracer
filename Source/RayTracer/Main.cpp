@@ -13,6 +13,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <ctime>
+#include <glm/gtx/quaternion.hpp>
 
 void InitScene01(Scene& scene, const Canvas& canvas)
 {
@@ -21,9 +22,9 @@ void InitScene01(Scene& scene, const Canvas& canvas)
     scene.SetCamera(camera);
 
     // create objects -> add to scene
-    for (int x = -10; x < 10; x++)
+    for (int x = -10; x < 12; x++)
     {
-        for (int z = -10; z < 10; z++)
+        for (int z = -10; z < 12; z++)
         {
             std::shared_ptr<Material> material;
 
@@ -64,14 +65,58 @@ void InitScene02(Scene& scene, const Canvas& canvas)
     scene.AddObject(std::move(mesh));
 }
 
+//CornellBox
+void InitSceneCornellBox(Scene& scene, const Canvas& canvas)
+{
+    float aspectRatio = canvas.GetSize().x / canvas.GetSize().y;
+    std::shared_ptr<Camera> camera = std::make_shared<Camera>(
+        glm::vec3{ 0, 0.5, 4 }, // Position the camera to capture more of the scene
+        glm::vec3{ 0, 0, -1 },  // Look towards the center of the scene
+        glm::vec3{ 0, 1, 0 },   // Up direction
+        40.0f,                  // Field of view
+        aspectRatio
+    );
+    scene.SetCamera(camera);
+
+    // Materials
+    auto redMaterial = std::make_shared<Lambertian>(color3_t(0.65f, 0.05f, 0.05f));
+    auto greenMaterial = std::make_shared<Lambertian>(color3_t(0.12f, 0.45f, 0.15f));
+    auto whiteMaterial = std::make_shared<Lambertian>(color3_t(0.73f, 0.73f, 0.73f));
+    auto lightMaterial = std::make_shared<Emissive>(color3_t(1.0f, 1.0f, 1.0f), 50.0f);
+
+    // Walls
+    auto leftWall = std::make_unique<Plane>(glm::vec3{ -1.0f, 0.0f, 0.0f }, glm::vec3{ 1.0f, 0.0f, 0.0f }, redMaterial);
+    auto rightWall = std::make_unique<Plane>(glm::vec3{ 1.0f, 0.0f, 0.0f }, glm::vec3{ -1.0f, 0.0f, 0.0f }, greenMaterial);
+    auto backWall = std::make_unique<Plane>(glm::vec3{ 0.0f, 0.0f, -1.0f }, glm::vec3{ 0.0f, 0.0f, 1.0f }, whiteMaterial);
+    auto floor = std::make_unique<Plane>(glm::vec3{ 0.0f, -0.5f, 0.0f }, glm::vec3{ 0.0f, -1.0f, 0.0f }, whiteMaterial);
+    auto ceiling = std::make_unique<Plane>(glm::vec3{ 0.0f, 1.5f, 0.0f }, glm::vec3{ 0.0f, 1.0f, 0.0f }, whiteMaterial);
+
+    // Small area light on the ceiling
+    auto light = std::make_unique<Mesh>(lightMaterial);
+    light->Load("models/quad-1.obj", glm::vec3{ 0, 1.5f, 0.0f }, glm::vec3{ 90, 0, 0 });
+
+    // Objects
+    auto sphere = std::make_unique<Sphere>(glm::vec3{ 0.2f, 0.0f, 0.7f }, 0.3f, whiteMaterial);
+    auto cube = std::make_unique<Mesh>(whiteMaterial);
+    cube->Load("models/cube.obj", glm::vec3{ 0.1f, 0.0f, 0.1f }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0.5f });
+
+    // Adding objects to the scene
+    scene.AddObject(std::move(leftWall));
+    scene.AddObject(std::move(rightWall));
+    scene.AddObject(std::move(backWall));
+    scene.AddObject(std::move(floor));
+    scene.AddObject(std::move(ceiling));
+    scene.AddObject(std::move(light)); // This should be a small rectangle, not the whole ceiling
+    scene.AddObject(std::move(sphere));
+    scene.AddObject(std::move(cube));
+}
+
 int main(int argc, char* argv[])
 {
     const int width = 400;
     const int height = 300;
-    const int samples = 20;
+    const int samples = 30;
     const int depth = 5;
-
-    std::cout << "Hello world!" << std::endl;
 
     seedRandom(static_cast<unsigned int>(time(nullptr)));
 
