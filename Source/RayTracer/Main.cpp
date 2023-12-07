@@ -60,7 +60,8 @@ void InitScene02(Scene& scene, const Canvas& canvas)
     auto plane = std::make_unique<Plane>(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, std::make_shared<Lambertian>(color3_t{ 0.2f }));
     scene.AddObject(std::move(plane));
 
-    auto mesh = std::make_unique<Mesh>(std::make_shared<Lambertian>(color3_t{ 0, 0, 1 }));
+    auto lightMaterial = std::make_shared<Emissive>(color3_t(1.0f, 1.0f, 1.0f), 50.0f);
+    auto mesh = std::make_unique<Mesh>(lightMaterial);
     mesh->Load("models/cube.obj", glm::vec3{ 0, 0.5f, 0 }, glm::vec3{ 0, 45, 0 });
     scene.AddObject(std::move(mesh));
 }
@@ -115,8 +116,8 @@ int main(int argc, char* argv[])
 {
     const int width = 400;
     const int height = 300;
-    const int samples = 30;
-    const int depth = 5;
+    const int samples = 150;
+    const int depth = 15;
 
     seedRandom(static_cast<unsigned int>(time(nullptr)));
 
@@ -127,7 +128,7 @@ int main(int argc, char* argv[])
     Canvas canvas(width, height, renderer);
     Scene scene(glm::vec3{ 1.0f }, glm::vec3{ 0.5f, 0.7f, 1.0f });
 
-    InitScene01(scene, canvas);
+    InitSceneCornellBox(scene, canvas);
       
     /*
     float aspectRatio = canvas.GetSize().x / (float)canvas.GetSize().y;
